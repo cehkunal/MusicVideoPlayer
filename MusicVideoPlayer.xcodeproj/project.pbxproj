@@ -74,6 +74,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C4738931D393DA60016904D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0CCC46D21D3740D8009633F4 /* ViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		0C4738941D393DD10016904D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0CCC46D41D3740D8009633F4 /* Main.storyboard */,
+				0CCC46D91D3740D8009633F4 /* LaunchScreen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		0C4738951D393E390016904D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0CCC46D01D3740D8009633F4 /* AppDelegate.swift */,
+				0CCC46D71D3740D8009633F4 /* Assets.xcassets */,
+				0CCC46DC1D3740D8009633F4 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			path = MusicVideoPlayer;
+			sourceTree = "<group>";
+		};
+		0C4738961D393E4A0016904D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		0CCC46C41D3740D8009633F4 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +116,7 @@
 				0CCC46E41D3740D8009633F4 /* MusicVideoPlayerTests */,
 				0CCC46EF1D3740D8009633F4 /* MusicVideoPlayerUITests */,
 				0CCC46CE1D3740D8009633F4 /* Products */,
+				0C4738951D393E390016904D /* Supporting Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,12 +133,9 @@
 		0CCC46CF1D3740D8009633F4 /* MusicVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				0CCC46D01D3740D8009633F4 /* AppDelegate.swift */,
-				0CCC46D21D3740D8009633F4 /* ViewController.swift */,
-				0CCC46D41D3740D8009633F4 /* Main.storyboard */,
-				0CCC46D71D3740D8009633F4 /* Assets.xcassets */,
-				0CCC46D91D3740D8009633F4 /* LaunchScreen.storyboard */,
-				0CCC46DC1D3740D8009633F4 /* Info.plist */,
+				0C4738961D393E4A0016904D /* Model */,
+				0C4738941D393DD10016904D /* View */,
+				0C4738931D393DA60016904D /* Controller */,
 			);
 			path = MusicVideoPlayer;
 			sourceTree = "<group>";
@@ -486,6 +519,7 @@
 				0CCC46F71D3740D8009633F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0CCC46F81D3740D8009633F4 /* Build configuration list for PBXNativeTarget "MusicVideoPlayerTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +528,7 @@
 				0CCC46FA1D3740D8009633F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0CCC46FB1D3740D8009633F4 /* Build configuration list for PBXNativeTarget "MusicVideoPlayerUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +537,7 @@
 				0CCC46FD1D3740D8009633F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
