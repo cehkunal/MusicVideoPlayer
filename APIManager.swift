@@ -19,26 +19,66 @@ class APIManager {
         let url = NSURL(string: urlstring)!
         
         
+//        let task = session.dataTaskWithURL(url) {
+//            (data , response, error ) -> Void in
+//            
+//            
+//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//               
+//                if(error != nil){
+//                    completion(result: error!.localizedDescription)
+//                }
+//                else
+//                {
+//                    completion(result: "NSURLSESSION SUCCESSFUL")
+//                    print(data)
+//                }
+//                
+//             })
+//            
+//        }
+       
+        
         let task = session.dataTaskWithURL(url) {
-            (data , response, error ) -> Void in
+            (data , response , error ) -> Void in
             
-            
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-               
-                if(error != nil){
+            if error != nil {
+                dispatch_async(dispatch_get_main_queue()){
                     completion(result: error!.localizedDescription)
                 }
-                else
+            }
+            else
+            {
+                do
                 {
-                    completion(result: "NSURLSESSION SUCCESSFUL")
-                    print(data)
+                    if let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+                    as? [String:AnyObject]
+                        {
+                            print(json)
+                            
+                           let priority = DISPATCH_QUEUE_PRIORITY_HIGH
+                            dispatch_async(dispatch_get_global_queue(priority, 0)){
+                                dispatch_async(dispatch_get_main_queue()){
+                                    completion(result: "JSON Serialisation Successful")
+                                }
+                            }
+                    }
+                    
                 }
                 
-             })
-            
+                catch {
+                    dispatch_async(dispatch_get_main_queue()){
+                    completion(result:"JSON Serialisation Not Successful")
+                    }
+                    
+                    
+                }
+                
+                
+            }
         }
-        task.resume()
         
+        task.resume()
         
         }
 
