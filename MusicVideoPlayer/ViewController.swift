@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var videos = [Videos]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,16 +21,26 @@ class ViewController: UIViewController {
         
     }
     
-    func didLoadData(result : String )
+    func didLoadData(videos: [Videos] )
     {
-        let alert = UIAlertController(title: (result), message: nil, preferredStyle: .Alert)
+//        let alert = UIAlertController(title: (result), message: nil, preferredStyle: .Alert)
+//        
+//        let okAction = UIAlertAction(title: "OK", style: .Default) { action -> Void in
+//        }
+//         //COde to do some task
+//            
+//            alert.addAction(okAction)
+//            self.presentViewController(alert, animated: true, completion: nil)
+//        
         
-        let okAction = UIAlertAction(title: "OK", style: .Default) { action -> Void in
+        self.videos=videos
+        
+       for(index , item) in videos.enumerate()
+       {
+        print("\(index) and title \(item.vName)")
         }
-         //COde to do some task
-            
-            alert.addAction(okAction)
-            self.presentViewController(alert, animated: true, completion: nil)
+        
+        
         
         
         
