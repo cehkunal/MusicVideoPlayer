@@ -26,8 +26,48 @@ class MusicVideoPlayerTableViewCell: UITableViewCell {
         
         rankLabel.text = "\(video!.vRank)"
         musicTitleLabel.text = video?.vName
-        musicImage.image = UIImage(named: "imageNotAvailable")
+        //musicImage.image = UIImage(named: "imageNotAvailable")
+        
+        if video?.vImageData != nil{
+            print("Get Data from array")
+            musicImage.image = UIImage(data: video!.vImageData!)
+        }
+        else
+        {
+            getVideoImage(video!, imageview: musicImage)
+        }
+        
+        
+        
+        
         
     }
+    
+    
+    
+    func getVideoImage(video:Videos , imageview:UIImageView){
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
+            
+            let data = NSData(contentsOfURL: NSURL(string:video.vImageUrl)!)
+            
+            var image : UIImage?
+            
+            if data != nil {
+                video.vImageData = data
+                image = UIImage(data: data!)
+            }
+            
+            dispatch_async(dispatch_get_main_queue()){
+                imageview.image = image
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    
     
 }

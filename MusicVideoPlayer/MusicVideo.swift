@@ -10,6 +10,7 @@ import Foundation
 
 class Videos
 {
+    var vImageData : NSData?
     
     var vRank = 0
     
