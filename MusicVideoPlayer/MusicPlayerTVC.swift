@@ -28,7 +28,7 @@ class MusicPlayerTVC: UITableViewController {
     func reachabilityStatusChanged() {
         switch reachabilityStatus {
         case NOACCESS:
-            self.view.backgroundColor=UIColor.redColor()
+            //self.view.backgroundColor=UIColor.redColor()
             dispatch_async(dispatch_get_main_queue()){
             let alert = UIAlertController(title: "No Access", message: "Make sure you are connected to internet", preferredStyle: .Alert)
             
@@ -52,7 +52,7 @@ class MusicPlayerTVC: UITableViewController {
             }
             
         default:
-            self.view.backgroundColor = UIColor.greenColor()
+            //self.view.backgroundColor = UIColor.greenColor()
             if videos.count > 0
             {
                 print("do not refresh")
@@ -111,14 +111,15 @@ class MusicPlayerTVC: UITableViewController {
         return videos.count
     }
 
+    private struct storyBoard{
+        static let cellReusableIdentifier = "cell"
+    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-
-        let video=videos[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier(storyBoard.cellReusableIdentifier, forIndexPath: indexPath) as! MusicVideoPlayerTableViewCell
         
-        cell.textLabel?.text = ("\(indexPath.row + 1)")
-        cell.detailTextLabel?.text = video.vName
+
+        cell.video=videos[indexPath.row]
 
         return cell
     }

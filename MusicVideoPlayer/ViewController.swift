@@ -25,7 +25,7 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
         reachabilityStatusChanged()
         
         let api = APIManager()
-        api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=50/json", completion: didLoadData)
+        api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=200/json", completion: didLoadData)
         
     }
     

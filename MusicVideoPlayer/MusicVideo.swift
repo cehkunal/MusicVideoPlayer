@@ -11,6 +11,8 @@ import Foundation
 class Videos
 {
     
+    var vRank = 0
+    
     //Data Encapsulation
     
     private var _vName:String
