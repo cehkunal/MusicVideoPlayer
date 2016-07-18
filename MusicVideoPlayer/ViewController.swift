@@ -8,21 +8,24 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController , UITableViewDataSource , UITableViewDelegate {
     
     var videos = [Videos]()
 
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var displayLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityStatusChanged", name: "ReachStatusChanged", object: nil)
         
         reachabilityStatusChanged()
         
         let api = APIManager()
         api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=10/json", completion: didLoadData)
-        
         
     }
     
@@ -61,12 +64,34 @@ class ViewController: UIViewController {
         print("\(index) and title \(item.vName)")
         }
         
+        tableView.reloadData()
+        
+
+        
         
         
         
         
     }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
 	
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return videos.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        let video=videos[indexPath.row]
+        
+        cell.textLabel?.text = ("\(indexPath.row + 1)")
+        cell.detailTextLabel?.text = video.vName
+    
+    return cell
+    }
   
 
 
