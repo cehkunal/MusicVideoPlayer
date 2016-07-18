@@ -18,6 +18,7 @@
 		0CCC46DB1D3740D8009633F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CCC46D91D3740D8009633F4 /* LaunchScreen.storyboard */; };
 		0CCC46E61D3740D8009633F4 /* MusicVideoPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC46E51D3740D8009633F4 /* MusicVideoPlayerTests.swift */; };
 		0CCC46F11D3740D8009633F4 /* MusicVideoPlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC46F01D3740D8009633F4 /* MusicVideoPlayerUITests.swift */; };
+		0CE613E41D3CBECD00536815 /* MusicPlayerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE613E31D3CBECD00536815 /* MusicPlayerTVC.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		0CCC46EC1D3740D8009633F4 /* MusicVideoPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicVideoPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CCC46F01D3740D8009633F4 /* MusicVideoPlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicVideoPlayerUITests.swift; sourceTree = "<group>"; };
 		0CCC46F21D3740D8009633F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CE613E31D3CBECD00536815 /* MusicPlayerTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				0CCC46D21D3740D8009633F4 /* ViewController.swift */,
+				0CE613E31D3CBECD00536815 /* MusicPlayerTVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				0CCC46D31D3740D8009633F4 /* ViewController.swift in Sources */,
 				0C18C77A1D3BA747008061C6 /* Reachability.m in Sources */,
 				0CCC46D11D3740D8009633F4 /* AppDelegate.swift in Sources */,
+				0CE613E41D3CBECD00536815 /* MusicPlayerTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
