@@ -21,23 +21,47 @@ class MusicPlayerTVC: UITableViewController {
         
         reachabilityStatusChanged()
         
-        let api = APIManager()
-        api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=50/json", completion: didLoadData)
         
     }
     
     
     func reachabilityStatusChanged() {
         switch reachabilityStatus {
-        case NOACCESS: self.view.backgroundColor=UIColor.redColor()
-        //displayLabel.text="No Internet Access"
-        case WIFI: self.view.backgroundColor=UIColor.yellowColor()
-        //displayLabel.text="WiFi Available"
-        case WWAN: self.view.backgroundColor=UIColor.blueColor()
-        //displayLabel.text="3G Available"
-        default:return
+        case NOACCESS:
+            self.view.backgroundColor=UIColor.redColor()
+            dispatch_async(dispatch_get_main_queue()){
+            let alert = UIAlertController(title: "No Access", message: "Make sure you are connected to internet", preferredStyle: .Alert)
             
+            let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                print("OK")
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
+                print("CANCEL")
+                })
+            
+            let deleteAction = UIAlertAction(title: "Delete", style: .Destructive , handler: { (action) -> Void in
+                print("delete")
+            })
+            
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            alert.addAction(deleteAction)
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+            }
+            
+        default:
+            self.view.backgroundColor = UIColor.greenColor()
+            if videos.count > 0
+            {
+                print("do not refresh")
+            }else
+            {
+            callAPI()
+            }
         }
+        
         
     }
     
@@ -64,6 +88,16 @@ class MusicPlayerTVC: UITableViewController {
         tableView.reloadData()
         }
 
+    
+    func callAPI(){
+        let api = APIManager()
+        api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=50/json", completion: didLoadData)
+        
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:"reachabilityStatusChanged", object: nil)
+    }
 
     // MARK: - Table view data source
 
