@@ -9,27 +9,40 @@
 import UIKit
 
 class DetailTableViewController: UIViewController {
+    
+    var videos:Videos!
+    
+    @IBOutlet weak var vNameLabel: UILabel!
+    
+    @IBOutlet weak var vImageView: UIImageView!
+    
+    @IBOutlet weak var vGenreLabel: UILabel!
 
+    @IBOutlet weak var vRightsLabel: UILabel!
+    
+    @IBOutlet weak var vPriceLabel: UILabel!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+       vNameLabel.text=videos .vName
+        vGenreLabel.text=videos.vGenre
+        vRightsLabel.text=videos.vRights
+        vPriceLabel.text=videos.vPrice
+
+        
+        if videos.vImageData != nil{
+            vImageView.image = UIImage(data: videos.vImageData!)
+        }
+        else{
+            vImageView.image = UIImage(named: "imageNotAvailable")
+        }
+
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  
 
 }

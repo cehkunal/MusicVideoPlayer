@@ -119,7 +119,9 @@ class MusicPlayerTVC: UITableViewController {
 
     private struct storyBoard{
         static let cellReusableIdentifier = "cell"
+        static let segueIdentifier = "DetailView"
     }
+    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(storyBoard.cellReusableIdentifier, forIndexPath: indexPath) as! MusicVideoPlayerTableViewCell
@@ -175,5 +177,14 @@ class MusicPlayerTVC: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == storyBoard.segueIdentifier{
+            if let indexpath = tableView.indexPathForSelectedRow{
+                let video = videos[indexpath.row]
+                let dvc = segue.destinationViewController as! DetailTableViewController
+               dvc.videos = video
+            }
+        }
+    }
 
 }
