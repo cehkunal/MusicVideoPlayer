@@ -175,6 +175,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h07-E5-Q25">
                                                     <rect key="frame" x="535" y="26" width="51" height="31"/>
                                                     <animations/>
+                                                    <connections>
+                                                        <action selector="touchedImageQuality:" destination="a4E-Io-CqC" eventType="valueChanged" id="CZu-bB-Wng"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <animations/>

@@ -12,9 +12,11 @@ class MusicPlayerTVC: UITableViewController {
 
     var videos = [Videos]()
     
+    let imgQuality = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityStatusChanged", name: "ReachStatusChanged", object: nil)

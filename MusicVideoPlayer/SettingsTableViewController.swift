@@ -28,12 +28,29 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var imageQualiySwitch: UISwitch!
     
     
+    @IBAction func touchedImageQuality(sender: UISwitch) {
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if imageQualiySwitch.on{
+            defaults.setBool(imageQualiySwitch.on, forKey: "imageQualitySettings")
+        }
+            
+        else{
+                defaults.setBool(false, forKey: "imageQualitySettings")
+            }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Settings"
 
+        tableView.alwaysBounceVertical = false
         
           NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferredFontChanged", name: UIContentSizeCategoryDidChangeNotification, object: nil)
+        
+        imageQualiySwitch.on = NSUserDefaults.standardUserDefaults().boolForKey("imageQualitySettings")
       
     }
     
