@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MusicPlayerTVC: UITableViewController {
+class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
 
     var videos = [Videos]()
     
@@ -27,7 +27,6 @@ class MusicPlayerTVC: UITableViewController {
        
          NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferredFontChanged", name: UIContentSizeCategoryDidChangeNotification, object: nil)
         reachabilityStatusChanged()
-        
         
     }
     
@@ -78,10 +77,16 @@ class MusicPlayerTVC: UITableViewController {
     
     @IBAction func refreshData(sender: UIRefreshControl) {
     
+        if searchController.active{
+            refreshControl?.endRefreshing()
+            	refreshControl?.attributedTitle = NSAttributedString(string: "No Refresh Allowed in Search")
+        }
+        else
+        {
         refreshControl?.endRefreshing()
         callAPI()
         title = "Top \(limit) itunes Songs"
-        
+        }
         
     }
     
@@ -120,8 +125,9 @@ class MusicPlayerTVC: UITableViewController {
         
         
         //Setup Search Contents
-        definesPresentationContext = false
-        searchController.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search An Artist"
         searchController.searchBar.searchBarStyle = UISearchBarStyle.Prominent
         
@@ -243,5 +249,26 @@ class MusicPlayerTVC: UITableViewController {
             }
         }
     }
+    
+    
+    
+    //Creating Search Logic
+    func updateSearchResultsForSearchController(searchController: UISearchController){
+        searchController.searchBar.text!.lowercaseString
+        filterSearch(searchController.searchBar.text!)
+    }
+    
+    
+    func filterSearch(searchText: String){
+        
+        filterVideos = videos.filter  { videos in
+        return videos.vArtist.lowercaseString.containsString(searchText.lowercaseString)
+        }
+        tableView.reloadData()
+        
+    }
+    
+    
+    
 
 }
