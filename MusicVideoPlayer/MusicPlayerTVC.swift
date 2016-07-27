@@ -128,7 +128,7 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
         definesPresentationContext = true
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search An Artist"
+        searchController.searchBar.placeholder = "Search By Title ,Artist or Rank"
         searchController.searchBar.searchBarStyle = UISearchBarStyle.Prominent
         
         
@@ -182,8 +182,10 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
         if searchController.active{
             cell.video = filterVideos[indexPath.row]
         }
+        else
+        {
         cell.video=videos[indexPath.row]
-
+        }
         return cell
     }
     
@@ -261,8 +263,8 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
     
     func filterSearch(searchText: String){
         
-        filterVideos = videos.filter  { videos in
-        return videos.vArtist.lowercaseString.containsString(searchText.lowercaseString)
+        filterVideos = videos.filter { videos in
+        return videos.vArtist.lowercaseString.containsString(searchText.lowercaseString) || videos.vName.lowercaseString.containsString(searchText.lowercaseString) || "\(videos.vRank)".lowercaseString.containsString(searchText.lowercaseString)
         }
         tableView.reloadData()
         
