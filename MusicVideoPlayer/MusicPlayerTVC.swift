@@ -12,6 +12,10 @@ class MusicPlayerTVC: UITableViewController {
 
     var videos = [Videos]()
     
+    var filterVideos = [Videos]()
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
     let imgQuality = false
     
     var limit = 10
@@ -106,15 +110,6 @@ class MusicPlayerTVC: UITableViewController {
     
     func didLoadData(videos: [Videos] )
     {
-        //        let alert = UIAlertController(title: (result), message: nil, preferredStyle: .Alert)
-        //
-        //        let okAction = UIAlertAction(title: "OK", style: .Default) { action -> Void in
-        //        }
-        //         //COde to do some task
-        //
-        //            alert.addAction(okAction)
-        //            self.presentViewController(alert, animated: true, completion: nil)
-        //
         
         self.videos=videos
         
@@ -122,6 +117,20 @@ class MusicPlayerTVC: UITableViewController {
         {
             print("\(index) and title \(item.vName)")
         }
+        
+        
+        //Setup Search Contents
+        definesPresentationContext = false
+        searchController.dimsBackgroundDuringPresentation = true
+        searchController.searchBar.placeholder = "Search An Artist"
+        searchController.searchBar.searchBarStyle = UISearchBarStyle.Prominent
+        
+        
+        
+        //Add the Search Bar to your Table View
+        tableView.tableHeaderView = searchController.searchBar
+        
+        
         
         tableView.reloadData()
         }
@@ -149,7 +158,9 @@ class MusicPlayerTVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if searchController.active{
+            return filterVideos.count
+        }
         return videos.count
     }
 
@@ -162,7 +173,9 @@ class MusicPlayerTVC: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(storyBoard.cellReusableIdentifier, forIndexPath: indexPath) as! MusicVideoPlayerTableViewCell
         
-
+        if searchController.active{
+            cell.video = filterVideos[indexPath.row]
+        }
         cell.video=videos[indexPath.row]
 
         return cell
@@ -216,7 +229,15 @@ class MusicPlayerTVC: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == storyBoard.segueIdentifier{
             if let indexpath = tableView.indexPathForSelectedRow{
-                let video = videos[indexpath.row]
+                let video : Videos!
+                if searchController.active{
+                    video = filterVideos[indexpath.row]
+                }
+                else
+                {
+                    video = videos[indexpath.row]
+                }
+                
                 let dvc = segue.destinationViewController as! DetailTableViewController
                dvc.videos = video
             }
