@@ -11,6 +11,7 @@
 		0C18C7751D3B7C46008061C6 /* MusicVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C18C7741D3B7C46008061C6 /* MusicVideo.swift */; settings = {ASSET_TAGS = (); }; };
 		0C18C77A1D3BA747008061C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C18C7791D3BA747008061C6 /* Reachability.m */; settings = {ASSET_TAGS = (); }; };
 		0C405B381D39D9AC00C16F51 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C405B371D39D9AC00C16F51 /* APIManager.swift */; settings = {ASSET_TAGS = (); }; };
+		0C5265381D489ECC0037EACA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5265371D489ECC0037EACA /* SettingsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		0C7A4D991D41E3AB00686781 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7A4D981D41E3AB00686781 /* DetailTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		0C7BFA961D3D4C8900A7E6E5 /* MusicVideoPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7BFA951D3D4C8900A7E6E5 /* MusicVideoPlayerTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		0CCC46D11D3740D8009633F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC46D01D3740D8009633F4 /* AppDelegate.swift */; };
@@ -47,6 +48,7 @@
 		0C18C7781D3BA747008061C6 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		0C18C7791D3BA747008061C6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		0C405B371D39D9AC00C16F51 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIManager.swift; path = ../APIManager.swift; sourceTree = "<group>"; };
+		0C5265371D489ECC0037EACA /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		0C7A4D981D41E3AB00686781 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		0C7BFA951D3D4C8900A7E6E5 /* MusicVideoPlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicVideoPlayerTableViewCell.swift; sourceTree = "<group>"; };
 		0CCC46CD1D3740D8009633F4 /* MusicVideoPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicVideoPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +117,7 @@
 				0CE613E31D3CBECD00536815 /* MusicPlayerTVC.swift */,
 				0C7BFA951D3D4C8900A7E6E5 /* MusicVideoPlayerTableViewCell.swift */,
 				0C7A4D981D41E3AB00686781 /* DetailTableViewController.swift */,
+				0C5265371D489ECC0037EACA /* SettingsTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				0C7A4D991D41E3AB00686781 /* DetailTableViewController.swift in Sources */,
 				0CCC46D31D3740D8009633F4 /* ViewController.swift in Sources */,
 				0C18C77A1D3BA747008061C6 /* Reachability.m in Sources */,
+				0C5265381D489ECC0037EACA /* SettingsTableViewController.swift in Sources */,
 				0CCC46D11D3740D8009633F4 /* AppDelegate.swift in Sources */,
 				0C7BFA961D3D4C8900A7E6E5 /* MusicVideoPlayerTableViewCell.swift in Sources */,
 				0CE613E41D3CBECD00536815 /* MusicPlayerTVC.swift in Sources */,
