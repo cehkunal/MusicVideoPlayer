@@ -9,10 +9,13 @@
 import UIKit
 import AVFoundation
 import AVKit
+import LocalAuthentication
 
 class DetailTableViewController: UIViewController {
     
     var videos:Videos!
+    var security : Bool = false
+    
     
     @IBOutlet weak var vNameLabel: UILabel!
     
@@ -52,9 +55,90 @@ class DetailTableViewController: UIViewController {
 
     }
     
+    func touchIdCheck(){
+            //Create the Alert
+        
+        let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "message", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        
+            //Create the local Authentication Context
+            let context = LAContext()
+            var touchIDError : NSError?
+            let reasonString = "Touch ID Authentication is needed to share on social media"
+        
+        
+            //Check if we can authntication with the local biometrics
+            if context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error:&touchIDError)
+            {
+                //Check what the authentication response was
+                	context.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString, reply: { (success, policyError) -> Void in
+                        
+                        if success{
+                            //User authenticated with local biometrics successfully
+                            dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+                            self.shareMedia()
+                            }
+                        }
+                        else
+                        {
+                            
+                            alert.title = "Unsuccessful"
+                            
+                            switch LAError(rawValue: policyError!.code)! {
+                            case .AppCancel:
+                                alert.message = "The Authentication was cancelled by user"
+                            case .AuthenticationFailed:
+                                alert.message = "Authentication Failed"
+                           
+                            case .SystemCancel:
+                                alert.message = "System Cancelled authentication"
+                            default:
+                                alert.message = "Local Authentication failed"
+                            }
+                            dispatch_async(dispatch_get_main_queue()){ [unowned self] in
+                                self.presentViewController(alert, animated: true, completion: nil)
+                            }
+                        }
+                    })
+                }
+        else
+            {
+                alert.title = "Error"
+                
+                switch LAError(rawValue: touchIDError!.code)! {
+                case .TouchIDLockout:
+                    alert.message = "TouchID LockedOut"
+                case .TouchIDNotAvailable:
+                    alert.message = "TouchID Not Available"
+                case .TouchIDNotEnrolled:
+                    alert.message = "TouchID Not Enrolled"
+                default:
+                    alert.message = "Local Authentication Error"
+                    
+                }
+                self.presentViewController(alert, animated: true, completion: nil)
+                }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     @IBAction func socialMedia(sender: AnyObject) {
         
-        shareMedia()
+        security = NSUserDefaults.standardUserDefaults().boolForKey("touchID")
+        switch security
+        {
+        case true:
+            touchIdCheck()
+        default:
+            shareMedia()
+        }
         
     }
     
