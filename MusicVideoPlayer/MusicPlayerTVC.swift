@@ -14,10 +14,10 @@ class MusicPlayerTVC: UITableViewController {
     
     let imgQuality = false
     
+    var limit = 10
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityStatusChanged", name: "ReachStatusChanged", object: nil)
        
@@ -68,8 +68,39 @@ class MusicPlayerTVC: UITableViewController {
             callAPI()
             }
         }
+    }
+    
+    
+    
+    @IBAction func refreshData(sender: UIRefreshControl) {
+    
+        refreshControl?.endRefreshing()
+        callAPI()
+        title = "Top \(limit) itunes Songs"
         
         
+    }
+    
+    
+    
+    func getAPICount(){
+        
+        if NSUserDefaults.standardUserDefaults().objectForKey("APICNT") != nil{
+            let theValue = NSUserDefaults.standardUserDefaults().objectForKey("APICNT") as! Int
+            limit = theValue
+        }
+        else
+        {
+            limit = 10
+        }
+        print(limit)
+       
+        
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
+        let refreshDate = formatter.stringFromDate(NSDate())
+        
+        refreshControl?.attributedTitle = NSAttributedString(string: "\(refreshDate)")
     }
     
     
@@ -97,8 +128,11 @@ class MusicPlayerTVC: UITableViewController {
 
     
     func callAPI(){
+        
+        getAPICount()
+        title = "Top \(limit) itunes Songs"
         let api = APIManager()
-        api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=50/json", completion: didLoadData)
+        api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=\(limit)/json", completion: didLoadData)
         
     }
     

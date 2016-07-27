@@ -47,6 +47,10 @@ class SettingsTableViewController: UITableViewController {
             apiCount.text = ("\(theValue)")
             sliderCount.value = Float(theValue)
         }
+        else{
+            sliderCount.value = 10.0
+            apiCount.text = "\(sliderCount.value)"
+        }
     }
     
     @IBAction func fetchValueChanged(sender: AnyObject) {
