@@ -26,6 +26,13 @@ class DetailTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferredFontChanged", name: UIContentSizeCategoryDidChangeNotification, object: nil)
+
+        func preferredFontChanged(){
+            print("Preferred Font Changed")
+        }
 
        vNameLabel.text=videos .vName
         vGenreLabel.text=videos.vGenre
@@ -41,6 +48,10 @@ class DetailTableViewController: UIViewController {
         }
 
 
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:"preferredFontChanged", object: nil)
     }
 
   
