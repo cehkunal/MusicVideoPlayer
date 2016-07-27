@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController,MFMailComposeViewControllerDelegate {
 
     
     @IBOutlet weak var aboutLabel: UILabel!
@@ -108,6 +109,70 @@ class SettingsTableViewController: UITableViewController {
         
         apiCount.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
     }
+    
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        if ( indexPath.section == 0 && indexPath.row == 1){
+            
+            let messageComposeViewController = configureMail()
+            
+            if MFMailComposeViewController.canSendMail(){
+                self.presentViewController(messageComposeViewController, animated: true, completion: nil)
+            }
+            else
+            {
+                mailAlert()
+            }
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+    }
+    
+    func mailAlert() {
+        
+        let mailALert : UIAlertController = UIAlertController(title: "Alert", message: "No e-mail setup for any account", preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        
+        mailALert.addAction(okAction)
+        self.presentViewController(mailALert, animated: true, completion: nil)
+    }
+    
+    
+    
+    func configureMail() -> MFMailComposeViewController{
+        
+        let messageComposeVC = MFMailComposeViewController()
+        messageComposeVC.mailComposeDelegate = self
+        messageComposeVC.setToRecipients(["cehkunal@gmail.com"])
+        messageComposeVC.setSubject("Feedback for ThePoint9 Music Video App")
+        messageComposeVC.setMessageBody("Hello Kunal! I would like to  share my feedback  . \n", isHTML: false)
+        
+        
+        return messageComposeVC
+    }
+    
+    
+   func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?){
+    
+        switch result.rawValue
+        {
+        case MFMailComposeResultSaved.rawValue:
+                print("Saved")
+        case MFMailComposeResultSent.rawValue:
+            print("Sent")
+        case MFMailComposeResultFailed.rawValue:
+            print("failed")
+        case MFMailComposeResultCancelled.rawValue:
+            print("Cancelled")
+        default:
+            print("Unknown Issue")
+    }
+    self.dismissViewControllerAnimated(true, completion: nil)	    
+    
+    }
+    
+    
+    
+    
     
     
     deinit{
