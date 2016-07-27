@@ -39,7 +39,9 @@ class SettingsTableViewController: UITableViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferredFontChanged", name: UIContentSizeCategoryDidChangeNotification, object: nil)
         
         imageQualiySwitch.on = NSUserDefaults.standardUserDefaults().boolForKey("imageQualitySettings")
-    
+        touchIDSwitch.on = NSUserDefaults.standardUserDefaults().boolForKey("touchID")
+        
+        
         if (NSUserDefaults.standardUserDefaults().objectForKey("APICNT")) != nil{
             
             let theValue = NSUserDefaults.standardUserDefaults().objectForKey("APICNT")
@@ -63,6 +65,18 @@ class SettingsTableViewController: UITableViewController {
         
     }
     
+    @IBAction func touchIDChanged(sender: UISwitch) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if touchIDSwitch.on{
+            defaults.setBool(touchIDSwitch.on, forKey: "touchID")
+        }
+            
+        else{
+            defaults.setBool(false, forKey: "touchID")
+        }
+
+        
+    }
     
     
     

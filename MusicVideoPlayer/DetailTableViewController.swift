@@ -52,6 +52,33 @@ class DetailTableViewController: UIViewController {
 
     }
     
+    @IBAction func socialMedia(sender: AnyObject) {
+        
+        shareMedia()
+        
+    }
+    
+    func shareMedia() {
+        
+        let activity1="Have you had the opportunity to play through this music video?"
+        let activity2="\(videos.vName) by \(videos.vArtist)"
+        let activity3="Tell me Your feedback!"
+        let activity4="\(videos.vLinkToiTunes)"
+        let activity5="(Shared through ThePoint9 Music App)"
+        
+        let activityController : UIActivityViewController = UIActivityViewController(activityItems: [activity1,activity2,activity3,activity4,activity5], applicationActivities: nil)
+        
+        activityController.completionWithItemsHandler = {(activity,success,items,error ) in
+            
+            if activity == UIActivityTypePostToFacebook{
+                print("activity")
+            }
+            
+        }
+        
+        self.presentViewController(activityController, animated: true, completion: nil)
+        
+    }
     
     @IBAction func playVideo(sender: UIBarButtonItem) {
         
