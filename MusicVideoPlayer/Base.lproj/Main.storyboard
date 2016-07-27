@@ -172,7 +172,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h07-E5-Q25">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="h07-E5-Q25">
                                                     <rect key="frame" x="535" y="26" width="51" height="31"/>
                                                     <animations/>
                                                     <connections>
@@ -208,7 +208,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNO-w5-Gcw">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="GNO-w5-Gcw">
                                                     <rect key="frame" x="535" y="31" width="51" height="31"/>
                                                     <animations/>
                                                 </switch>
@@ -230,7 +230,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="73"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bez-8R-hq0">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bez-8R-hq0">
                                                     <rect key="frame" x="8" y="8" width="584" height="75"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -255,9 +255,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="73"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ooq-jC-fAS">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="10" maxValue="200" translatesAutoresizingMaskIntoConstraints="NO" id="ooq-jC-fAS">
                                                     <rect key="frame" x="46" y="27" width="509" height="31"/>
                                                     <animations/>
+                                                    <connections>
+                                                        <action selector="fetchValueChanged:" destination="a4E-Io-CqC" eventType="valueChanged" id="qxT-d5-vrh"/>
+                                                    </connections>
                                                 </slider>
                                             </subviews>
                                             <animations/>
@@ -402,7 +405,11 @@
                         </variation>
                     </view>
                     <toolbarItems>
-                        <barButtonItem systemItem="play" id="Uth-qq-p6D"/>
+                        <barButtonItem systemItem="play" id="Uth-qq-p6D">
+                            <connections>
+                                <action selector="playVideo:" destination="4Yk-SS-pvm" id="Hh9-3v-4Yu"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="sKC-7h-BGJ"/>
                         <barButtonItem systemItem="action" id="HGt-ey-q7f"/>
                     </toolbarItems>

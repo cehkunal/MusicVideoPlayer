@@ -28,6 +28,40 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var imageQualiySwitch: UISwitch!
     
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "Settings"
+        
+        tableView.alwaysBounceVertical = false
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferredFontChanged", name: UIContentSizeCategoryDidChangeNotification, object: nil)
+        
+        imageQualiySwitch.on = NSUserDefaults.standardUserDefaults().boolForKey("imageQualitySettings")
+    
+        if (NSUserDefaults.standardUserDefaults().objectForKey("APICNT")) != nil{
+            
+            let theValue = NSUserDefaults.standardUserDefaults().objectForKey("APICNT")
+             as! Int
+            apiCount.text = ("\(theValue)")
+            sliderCount.value = Float(theValue)
+        }
+    }
+    
+    @IBAction func fetchValueChanged(sender: AnyObject) {
+        
+        let theValue = NSUserDefaults.standardUserDefaults()
+        
+        theValue.setObject(Int(sliderCount.value), forKey: "APICNT")
+        apiCount.text = ("\(Int(sliderCount.value))")
+
+        
+    }
+    
+    
+    
+    
     @IBAction func touchedImageQuality(sender: UISwitch) {
         
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -41,18 +75,7 @@ class SettingsTableViewController: UITableViewController {
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        title = "Settings"
-
-        tableView.alwaysBounceVertical = false
-        
-          NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferredFontChanged", name: UIContentSizeCategoryDidChangeNotification, object: nil)
-        
-        imageQualiySwitch.on = NSUserDefaults.standardUserDefaults().boolForKey("imageQualitySettings")
-      
-    }
+    
     
     
     func preferredFontChanged() {
