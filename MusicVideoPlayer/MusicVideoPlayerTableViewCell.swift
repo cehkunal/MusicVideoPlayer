@@ -24,9 +24,9 @@ class MusicVideoPlayerTableViewCell: UITableViewCell {
     
     func updateCell(){
         
-        rankLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        rankLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
-        musicTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        musicTitleLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
         
         rankLabel.text = "\(video!.vRank)"
@@ -35,7 +35,7 @@ class MusicVideoPlayerTableViewCell: UITableViewCell {
         
         if video?.vImageData != nil{
             print("Get Data from array")
-            musicImage.image = UIImage(data: video!.vImageData!)
+            musicImage.image = UIImage(data: video!.vImageData! as Data)
         }
         else
         {
@@ -50,11 +50,11 @@ class MusicVideoPlayerTableViewCell: UITableViewCell {
     
     
     
-    func getVideoImage(video:Videos , imageview:UIImageView){
+    func getVideoImage(_ video:Videos , imageview:UIImageView){
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async{
             
-            let data = NSData(contentsOfURL: NSURL(string:video.vImageUrl)!)
+            let data = try? Data(contentsOf: URL(string:video.vImageUrl)!)
             
             var image : UIImage?
             
@@ -63,7 +63,7 @@ class MusicVideoPlayerTableViewCell: UITableViewCell {
                 image = UIImage(data: data!)
             }
             
-            dispatch_async(dispatch_get_main_queue()){
+            DispatchQueue.main.async{
                 imageview.image = image
             }
             

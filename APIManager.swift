@@ -10,13 +10,13 @@ import Foundation
 
 class APIManager {
     
-    func loadData ( urlstring:String, completion: [Videos]-> Void)
+    func loadData ( _ urlstring:String, completion: @escaping ([Videos])-> Void)
     {
-        let config = NSURLSessionConfiguration.ephemeralSessionConfiguration()
+        let config = URLSessionConfiguration.ephemeral
         
         
-        let session = NSURLSession(configuration: config)
-        let url = NSURL(string: urlstring)!
+        let session = URLSession(configuration: config)
+        let url = URL(string: urlstring)!
         
         
 //        let task = session.dataTaskWithURL(url) {
@@ -39,7 +39,7 @@ class APIManager {
 //        }
        
         
-        let task = session.dataTaskWithURL(url) {
+        let task = session.dataTask(with: url, completionHandler: {
             (data , response , error ) -> Void in
             
             if error != nil {
@@ -49,13 +49,13 @@ class APIManager {
             {
                 do
                 {
-                    if let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+                    if let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
                     as? JSONDictionary,
-                    feed = json["feed"] as? JSONDictionary ,
-                    entries = feed["entry"] as? JSONArray
+                    let feed = json["feed"] as? JSONDictionary ,
+                    let entries = feed["entry"] as? JSONArray
                         {
                             var videos = [Videos]()
-                            for (index,entry) in entries.enumerate()
+                            for (index,entry) in entries.enumerated()
                             {
                                 let entry = Videos(data: entry as! JSONDictionary)
                                 entry.vRank = index+1
@@ -67,9 +67,9 @@ class APIManager {
                             print("")
                             
                             
-                           let priority = DISPATCH_QUEUE_PRIORITY_HIGH
-                            dispatch_async(dispatch_get_global_queue(priority, 0)){
-                                dispatch_async(dispatch_get_main_queue()){
+                           let priority = DispatchQueue.GlobalQueuePriority.high
+                            DispatchQueue.global(priority: priority).async{
+                                DispatchQueue.main.async{
                                     completion(videos)
                                 }
                             }
@@ -78,7 +78,7 @@ class APIManager {
                 }
                 
                 catch {
-                    dispatch_async(dispatch_get_main_queue()){
+                    DispatchQueue.main.async{
                     print("JSONSerialisation Error")
                     }
                     
@@ -87,7 +87,7 @@ class APIManager {
                 
                 
             }
-        }
+        }) 
         
         task.resume()
         

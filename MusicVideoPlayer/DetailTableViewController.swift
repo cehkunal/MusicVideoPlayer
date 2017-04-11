@@ -33,7 +33,7 @@ class DetailTableViewController: UIViewController {
         super.viewDidLoad()
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferredFontChanged", name: UIContentSizeCategoryDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: "preferredFontChanged", name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
 
         func preferredFontChanged(){
             print("Preferred Font Changed")
@@ -46,7 +46,7 @@ class DetailTableViewController: UIViewController {
 
         
         if videos.vImageData != nil{
-            vImageView.image = UIImage(data: videos.vImageData!)
+            vImageView.image = UIImage(data: videos.vImageData! as Data)
         }
         else{
             vImageView.image = UIImage(named: "imageNotAvailable")
@@ -58,8 +58,8 @@ class DetailTableViewController: UIViewController {
     func touchIdCheck(){
             //Create the Alert
         
-        let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "message", style: UIAlertActionStyle.Cancel, handler: nil))
+        let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "message", style: UIAlertActionStyle.cancel, handler: nil))
         
         
             //Create the local Authentication Context
@@ -69,14 +69,14 @@ class DetailTableViewController: UIViewController {
         
         
             //Check if we can authntication with the local biometrics
-            if context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error:&touchIDError)
+            if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error:&touchIDError)
             {
                 //Check what the authentication response was
-                	context.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString, reply: { (success, policyError) -> Void in
+                	context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString, reply: { (success, policyError) -> Void in
                         
                         if success{
                             //User authenticated with local biometrics successfully
-                            dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+                            DispatchQueue.main.async { [unowned self] in
                             self.shareMedia()
                             }
                         }
@@ -85,19 +85,19 @@ class DetailTableViewController: UIViewController {
                             
                             alert.title = "Unsuccessful"
                             
-                            switch LAError(rawValue: policyError!.code)! {
-                            case .AppCancel:
+                            switch LAError.Code(rawValue: policyError!.code)! {
+                            case .appCancel:
                                 alert.message = "The Authentication was cancelled by user"
-                            case .AuthenticationFailed:
+                            case .authenticationFailed:
                                 alert.message = "Authentication Failed"
                            
-                            case .SystemCancel:
+                            case .systemCancel:
                                 alert.message = "System Cancelled authentication"
                             default:
                                 alert.message = "Local Authentication failed"
                             }
-                            dispatch_async(dispatch_get_main_queue()){ [unowned self] in
-                                self.presentViewController(alert, animated: true, completion: nil)
+                            DispatchQueue.main.async{ [unowned self] in
+                                self.present(alert, animated: true, completion: nil)
                             }
                         }
                     })
@@ -106,18 +106,18 @@ class DetailTableViewController: UIViewController {
             {
                 alert.title = "Error"
                 
-                switch LAError(rawValue: touchIDError!.code)! {
-                case .TouchIDLockout:
+                switch LAError.Code(rawValue: touchIDError!.code)! {
+                case .touchIDLockout:
                     alert.message = "TouchID LockedOut"
-                case .TouchIDNotAvailable:
+                case .touchIDNotAvailable:
                     alert.message = "TouchID Not Available"
-                case .TouchIDNotEnrolled:
+                case .touchIDNotEnrolled:
                     alert.message = "TouchID Not Enrolled"
                 default:
                     alert.message = "Local Authentication Error"
                     
                 }
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
                 }
         
     }
@@ -129,9 +129,9 @@ class DetailTableViewController: UIViewController {
     
     
     
-    @IBAction func socialMedia(sender: AnyObject) {
+    @IBAction func socialMedia(_ sender: AnyObject) {
         
-        security = NSUserDefaults.standardUserDefaults().boolForKey("touchID")
+        security = UserDefaults.standard.bool(forKey: "touchID")
         switch security
         {
         case true:
@@ -154,25 +154,25 @@ class DetailTableViewController: UIViewController {
         
         activityController.completionWithItemsHandler = {(activity,success,items,error ) in
             
-            if activity == UIActivityTypePostToFacebook{
+            if activity == UIActivityType.postToFacebook{
                 print("activity")
             }
             
         }
         
-        self.presentViewController(activityController, animated: true, completion: nil)
+        self.present(activityController, animated: true, completion: nil)
         
     }
     
-    @IBAction func playVideo(sender: UIBarButtonItem) {
+    @IBAction func playVideo(_ sender: UIBarButtonItem) {
         
-        let url = NSURL(string: videos.vVideoUrl)!
-        let player = AVPlayer(URL: url)
+        let url = URL(string: videos.vVideoUrl)!
+        let player = AVPlayer(url: url)
         let playerViewController = AVPlayerViewController()
         
         playerViewController.player = player
         
-        self.presentViewController(playerViewController, animated: true){
+        self.present(playerViewController, animated: true){
             playerViewController.player?.play()
             
         }
@@ -180,7 +180,7 @@ class DetailTableViewController: UIViewController {
     }
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:"preferredFontChanged", object: nil)
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: "preferredFontChanged"), object: nil)
     }
 
   

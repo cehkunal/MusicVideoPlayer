@@ -37,15 +37,15 @@ class SettingsTableViewController: UITableViewController,MFMailComposeViewContro
         
         tableView.alwaysBounceVertical = false
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferredFontChanged", name: UIContentSizeCategoryDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SettingsTableViewController.preferredFontChanged), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
         
-        imageQualiySwitch.on = NSUserDefaults.standardUserDefaults().boolForKey("imageQualitySettings")
-        touchIDSwitch.on = NSUserDefaults.standardUserDefaults().boolForKey("touchID")
+        imageQualiySwitch.isOn = UserDefaults.standard.bool(forKey: "imageQualitySettings")
+        touchIDSwitch.isOn = UserDefaults.standard.bool(forKey: "touchID")
         
         
-        if (NSUserDefaults.standardUserDefaults().objectForKey("APICNT")) != nil{
+        if (UserDefaults.standard.object(forKey: "APICNT")) != nil{
             
-            let theValue = NSUserDefaults.standardUserDefaults().objectForKey("APICNT")
+            let theValue = UserDefaults.standard.object(forKey: "APICNT")
              as! Int
             apiCount.text = ("\(theValue)")
             sliderCount.value = Float(theValue)
@@ -56,24 +56,24 @@ class SettingsTableViewController: UITableViewController,MFMailComposeViewContro
         }
     }
     
-    @IBAction func fetchValueChanged(sender: AnyObject) {
+    @IBAction func fetchValueChanged(_ sender: AnyObject) {
         
-        let theValue = NSUserDefaults.standardUserDefaults()
+        let theValue = UserDefaults.standard
         
-        theValue.setObject(Int(sliderCount.value), forKey: "APICNT")
+        theValue.set(Int(sliderCount.value), forKey: "APICNT")
         apiCount.text = ("\(Int(sliderCount.value))")
 
         
     }
     
-    @IBAction func touchIDChanged(sender: UISwitch) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if touchIDSwitch.on{
-            defaults.setBool(touchIDSwitch.on, forKey: "touchID")
+    @IBAction func touchIDChanged(_ sender: UISwitch) {
+        let defaults = UserDefaults.standard
+        if touchIDSwitch.isOn{
+            defaults.set(touchIDSwitch.isOn, forKey: "touchID")
         }
             
         else{
-            defaults.setBool(false, forKey: "touchID")
+            defaults.set(false, forKey: "touchID")
         }
 
         
@@ -81,15 +81,15 @@ class SettingsTableViewController: UITableViewController,MFMailComposeViewContro
     
     
     
-    @IBAction func touchedImageQuality(sender: UISwitch) {
+    @IBAction func touchedImageQuality(_ sender: UISwitch) {
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if imageQualiySwitch.on{
-            defaults.setBool(imageQualiySwitch.on, forKey: "imageQualitySettings")
+        let defaults = UserDefaults.standard
+        if imageQualiySwitch.isOn{
+            defaults.set(imageQualiySwitch.isOn, forKey: "imageQualitySettings")
         }
             
         else{
-                defaults.setBool(false, forKey: "imageQualitySettings")
+                defaults.set(false, forKey: "imageQualitySettings")
             }
         
     }
@@ -99,41 +99,41 @@ class SettingsTableViewController: UITableViewController,MFMailComposeViewContro
     
     func preferredFontChanged() {
         
-        aboutLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        aboutLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
-        feedBackLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        feedBackLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
-        imageQualityLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        imageQualityLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
-        securityLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        securityLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
-        apiCount.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        apiCount.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
     }
     
     
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if ( indexPath.section == 0 && indexPath.row == 1){
             
             let messageComposeViewController = configureMail()
             
             if MFMailComposeViewController.canSendMail(){
-                self.presentViewController(messageComposeViewController, animated: true, completion: nil)
+                self.present(messageComposeViewController, animated: true, completion: nil)
             }
             else
             {
                 mailAlert()
             }
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
     func mailAlert() {
         
-        let mailALert : UIAlertController = UIAlertController(title: "Alert", message: "No e-mail setup for any account", preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        let mailALert : UIAlertController = UIAlertController(title: "Alert", message: "No e-mail setup for any account", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         
         mailALert.addAction(okAction)
-        self.presentViewController(mailALert, animated: true, completion: nil)
+        self.present(mailALert, animated: true, completion: nil)
     }
     
     
@@ -151,22 +151,22 @@ class SettingsTableViewController: UITableViewController,MFMailComposeViewContro
     }
     
     
-   func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?){
+   func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?){
     
         switch result.rawValue
         {
-        case MFMailComposeResultSaved.rawValue:
+        case MFMailComposeResult.saved.rawValue:
                 print("Saved")
-        case MFMailComposeResultSent.rawValue:
+        case MFMailComposeResult.sent.rawValue:
             print("Sent")
-        case MFMailComposeResultFailed.rawValue:
+        case MFMailComposeResult.failed.rawValue:
             print("failed")
-        case MFMailComposeResultCancelled.rawValue:
+        case MFMailComposeResult.cancelled.rawValue:
             print("Cancelled")
         default:
             print("Unknown Issue")
     }
-    self.dismissViewControllerAnimated(true, completion: nil)	    
+    self.dismiss(animated: true, completion: nil)	    
     
     }
     
@@ -176,7 +176,7 @@ class SettingsTableViewController: UITableViewController,MFMailComposeViewContro
     
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "preferredFontChanged", object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "preferredFontChanged"), object: nil)
 }
 
   
