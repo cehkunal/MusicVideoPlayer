@@ -20,7 +20,7 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
         super.viewDidLoad()
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityStatusChanged", name: "ReachStatusChanged", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.reachabilityStatusChanged), name: NSNotification.Name(rawValue: "ReachStatusChanged"), object: nil)
         
         reachabilityStatusChanged()
         
@@ -32,11 +32,11 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
     
     func reachabilityStatusChanged() {
         switch reachabilityStatus {
-        case NOACCESS: self.view.backgroundColor=UIColor.redColor()
+        case NOACCESS: self.view.backgroundColor=UIColor.red
             displayLabel.text="No Internet Access"
-        case WIFI: self.view.backgroundColor=UIColor.yellowColor()
+        case WIFI: self.view.backgroundColor=UIColor.yellow
             displayLabel.text="WiFi Available"
-        case WWAN: self.view.backgroundColor=UIColor.blueColor()
+        case WWAN: self.view.backgroundColor=UIColor.blue
             displayLabel.text="3G Available"
         default:return
             
@@ -45,7 +45,7 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
     }
     
     
-    func didLoadData(videos: [Videos] )
+    func didLoadData(_ videos: [Videos] )
     {
 //        let alert = UIAlertController(title: (result), message: nil, preferredStyle: .Alert)
 //        
@@ -59,7 +59,7 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
         
         self.videos=videos
         
-       for(index , item) in videos.enumerate()
+       for(index , item) in videos.enumerated()
        {
         print("\(index) and title \(item.vName)")
         }
@@ -74,17 +74,17 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
         
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 	
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return videos.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let video=videos[indexPath.row]
         
         cell.textLabel?.text = ("\(indexPath.row + 1)")

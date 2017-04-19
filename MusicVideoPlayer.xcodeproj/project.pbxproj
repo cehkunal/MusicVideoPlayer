@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C18C7731D3B7B57008061C6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C18C7721D3B7B57008061C6 /* Constants.swift */; settings = {ASSET_TAGS = (); }; };
-		0C18C7751D3B7C46008061C6 /* MusicVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C18C7741D3B7C46008061C6 /* MusicVideo.swift */; settings = {ASSET_TAGS = (); }; };
-		0C18C77A1D3BA747008061C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C18C7791D3BA747008061C6 /* Reachability.m */; settings = {ASSET_TAGS = (); }; };
-		0C405B381D39D9AC00C16F51 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C405B371D39D9AC00C16F51 /* APIManager.swift */; settings = {ASSET_TAGS = (); }; };
-		0C5265381D489ECC0037EACA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5265371D489ECC0037EACA /* SettingsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		0C7A4D991D41E3AB00686781 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7A4D981D41E3AB00686781 /* DetailTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		0C7BFA961D3D4C8900A7E6E5 /* MusicVideoPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7BFA951D3D4C8900A7E6E5 /* MusicVideoPlayerTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		0C18C7731D3B7B57008061C6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C18C7721D3B7B57008061C6 /* Constants.swift */; };
+		0C18C7751D3B7C46008061C6 /* MusicVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C18C7741D3B7C46008061C6 /* MusicVideo.swift */; };
+		0C18C77A1D3BA747008061C6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C18C7791D3BA747008061C6 /* Reachability.m */; };
+		0C405B381D39D9AC00C16F51 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C405B371D39D9AC00C16F51 /* APIManager.swift */; };
+		0C5265381D489ECC0037EACA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5265371D489ECC0037EACA /* SettingsTableViewController.swift */; };
+		0C7A4D991D41E3AB00686781 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7A4D981D41E3AB00686781 /* DetailTableViewController.swift */; };
+		0C7BFA961D3D4C8900A7E6E5 /* MusicVideoPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7BFA951D3D4C8900A7E6E5 /* MusicVideoPlayerTableViewCell.swift */; };
 		0CCC46D11D3740D8009633F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC46D01D3740D8009633F4 /* AppDelegate.swift */; };
 		0CCC46D31D3740D8009633F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC46D21D3740D8009633F4 /* ViewController.swift */; };
 		0CCC46D61D3740D8009633F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CCC46D41D3740D8009633F4 /* Main.storyboard */; };
@@ -21,7 +21,7 @@
 		0CCC46DB1D3740D8009633F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CCC46D91D3740D8009633F4 /* LaunchScreen.storyboard */; };
 		0CCC46E61D3740D8009633F4 /* MusicVideoPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC46E51D3740D8009633F4 /* MusicVideoPlayerTests.swift */; };
 		0CCC46F11D3740D8009633F4 /* MusicVideoPlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC46F01D3740D8009633F4 /* MusicVideoPlayerUITests.swift */; };
-		0CE613E41D3CBECD00536815 /* MusicPlayerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE613E31D3CBECD00536815 /* MusicPlayerTVC.swift */; settings = {ASSET_TAGS = (); }; };
+		0CE613E41D3CBECD00536815 /* MusicPlayerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE613E31D3CBECD00536815 /* MusicPlayerTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -271,15 +271,18 @@
 					0CCC46CC1D3740D8009633F4 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 2CWK37XQ6T;
+						LastSwiftMigration = 0830;
 					};
 					0CCC46E01D3740D8009633F4 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 2CWK37XQ6T;
+						LastSwiftMigration = 0830;
 						TestTargetID = 0CCC46CC1D3740D8009633F4;
 					};
 					0CCC46EB1D3740D8009633F4 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 2CWK37XQ6T;
+						LastSwiftMigration = 0830;
 						TestTargetID = 0CCC46CC1D3740D8009633F4;
 					};
 				};
@@ -494,6 +497,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MusicVideoPlayer/MusicVideoPlayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -507,6 +511,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kunal.MusicVideoPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MusicVideoPlayer/MusicVideoPlayer-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -518,6 +523,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kunal.MusicVideoPlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MusicVideoPlayer.app/MusicVideoPlayer";
 			};
 			name = Debug;
@@ -530,6 +536,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kunal.MusicVideoPlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MusicVideoPlayer.app/MusicVideoPlayer";
 			};
 			name = Release;
@@ -541,6 +548,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kunal.MusicVideoPlayerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = MusicVideoPlayer;
 				USES_XCTRUNNER = YES;
 			};
@@ -553,6 +561,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kunal.MusicVideoPlayerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = MusicVideoPlayer;
 				USES_XCTRUNNER = YES;
 			};

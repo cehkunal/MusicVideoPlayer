@@ -23,9 +23,9 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityStatusChanged", name: "ReachStatusChanged", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MusicPlayerTVC.reachabilityStatusChanged), name: NSNotification.Name(rawValue: "ReachStatusChanged"), object: nil)
        
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferredFontChanged", name: UIContentSizeCategoryDidChangeNotification, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(MusicPlayerTVC.preferredFontChanged), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
         reachabilityStatusChanged()
         
     }
@@ -39,18 +39,18 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
         switch reachabilityStatus {
         case NOACCESS:
             //self.view.backgroundColor=UIColor.redColor()
-            dispatch_async(dispatch_get_main_queue()){
-            let alert = UIAlertController(title: "No Access", message: "Make sure you are connected to internet", preferredStyle: .Alert)
+            DispatchQueue.main.async{
+            let alert = UIAlertController(title: "No Access", message: "Make sure you are connected to internet", preferredStyle: .alert)
             
-            let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
                 print("OK")
             })
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action) -> Void in
                 print("CANCEL")
                 })
             
-            let deleteAction = UIAlertAction(title: "Delete", style: .Destructive , handler: { (action) -> Void in
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive , handler: { (action) -> Void in
                 print("delete")
             })
             
@@ -58,7 +58,7 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
             alert.addAction(cancelAction)
             alert.addAction(deleteAction)
             
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
             }
             
         default:
@@ -75,9 +75,9 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
     
     
     
-    @IBAction func refreshData(sender: UIRefreshControl) {
+    @IBAction func refreshData(_ sender: UIRefreshControl) {
     
-        if searchController.active{
+        if searchController.isActive{
             refreshControl?.endRefreshing()
             	refreshControl?.attributedTitle = NSAttributedString(string: "No Refresh Allowed in Search")
         }
@@ -94,8 +94,8 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
     
     func getAPICount(){
         
-        if NSUserDefaults.standardUserDefaults().objectForKey("APICNT") != nil{
-            let theValue = NSUserDefaults.standardUserDefaults().objectForKey("APICNT") as! Int
+        if UserDefaults.standard.object(forKey: "APICNT") != nil{
+            let theValue = UserDefaults.standard.object(forKey: "APICNT") as! Int
             limit = theValue
         }
         else
@@ -105,20 +105,20 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
         print(limit)
        
         
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
-        let refreshDate = formatter.stringFromDate(NSDate())
+        let refreshDate = formatter.string(from: Date())
         
         refreshControl?.attributedTitle = NSAttributedString(string: "\(refreshDate)")
     }
     
     
-    func didLoadData(videos: [Videos] )
+    func didLoadData(_ videos: [Videos] )
     {
         
         self.videos=videos
         
-        for(index , item) in videos.enumerate()
+        for(index , item) in videos.enumerated()
         {
             print("\(index) and title \(item.vName)")
         }
@@ -129,7 +129,7 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search By Title ,Artist or Rank"
-        searchController.searchBar.searchBarStyle = UISearchBarStyle.Prominent
+        searchController.searchBar.searchBarStyle = UISearchBarStyle.prominent
         
         
         
@@ -152,34 +152,34 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
     }
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:"reachabilityStatusChanged", object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:"preferredFontChanged", object: nil)
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: "reachabilityStatusChanged"), object: nil)
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: "preferredFontChanged"), object: nil)
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.active{
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.isActive{
             return filterVideos.count
         }
         return videos.count
     }
 
-    private struct storyBoard{
+    fileprivate struct storyBoard{
         static let cellReusableIdentifier = "cell"
         static let segueIdentifier = "DetailView"
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(storyBoard.cellReusableIdentifier, forIndexPath: indexPath) as! MusicVideoPlayerTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: storyBoard.cellReusableIdentifier, for: indexPath) as! MusicVideoPlayerTableViewCell
         
-        if searchController.active{
+        if searchController.isActive{
             cell.video = filterVideos[indexPath.row]
         }
         else
@@ -234,11 +234,11 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
         // Pass the selected object to the new view controller.
     }
     */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == storyBoard.segueIdentifier{
             if let indexpath = tableView.indexPathForSelectedRow{
                 let video : Videos!
-                if searchController.active{
+                if searchController.isActive{
                     video = filterVideos[indexpath.row]
                 }
                 else
@@ -246,7 +246,7 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
                     video = videos[indexpath.row]
                 }
                 
-                let dvc = segue.destinationViewController as! DetailTableViewController
+                let dvc = segue.destination as! DetailTableViewController
                dvc.videos = video
             }
         }
@@ -255,16 +255,16 @@ class MusicPlayerTVC: UITableViewController,UISearchResultsUpdating {
     
     
     //Creating Search Logic
-    func updateSearchResultsForSearchController(searchController: UISearchController){
-        searchController.searchBar.text!.lowercaseString
+    func updateSearchResults(for searchController: UISearchController){
+        searchController.searchBar.text!.lowercased()
         filterSearch(searchController.searchBar.text!)
     }
     
     
-    func filterSearch(searchText: String){
+    func filterSearch(_ searchText: String){
         
         filterVideos = videos.filter { videos in
-        return videos.vArtist.lowercaseString.containsString(searchText.lowercaseString) || videos.vName.lowercaseString.containsString(searchText.lowercaseString) || "\(videos.vRank)".lowercaseString.containsString(searchText.lowercaseString)
+        return videos.vArtist.lowercased().contains(searchText.lowercased()) || videos.vName.lowercased().contains(searchText.lowercased()) || "\(videos.vRank)".lowercased().contains(searchText.lowercased())
         }
         tableView.reloadData()
         
