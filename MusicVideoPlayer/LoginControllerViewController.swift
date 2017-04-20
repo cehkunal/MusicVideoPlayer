@@ -24,17 +24,43 @@ class LoginControllerViewController: UIViewController {
 
     @IBAction func loginAction(_ sender: UIButton) {
 
-        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
-            let username = value?["username"] as? String ?? ""
-            let user = User.init(username: username)
-            
-            // ...
+            print(value!)
+        
+            if (value?[self.userNameTextField.text!]) != nil
+            {
+                print("user found")
+                
+                let originalPassword : String = value?[self.userNameTextField.text!] as! String
+                let password  : String = self.passwordTextField.text!
+                
+                if(password.caseInsensitiveCompare(originalPassword) == ComparisonResult.orderedSame)
+                {
+                    print("Successfully logged in \(self.userNameTextField.text!)")
+                    
+                    //Performing Segue
+                    
+                    self.performSegue(withIdentifier: "enterApp", sender: nil)
+                    
+                }
+                else
+                {
+                    let alert = UIAlertController(title: "Sangeet", message: "The Password is Incorrect. Please Try Again", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+            else
+            {
+                let alert = UIAlertController(title: "Sangeet", message: "User Not Found In Database. Please Register First", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
         }) { (error) in
             print(error.localizedDescription)
         }
-        if(ref.child("users").)
         
     
     
