@@ -1,0 +1,6 @@
+framework module Pods_MusicVideoPlayerTests {
+  umbrella header "Pods-MusicVideoPlayerTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

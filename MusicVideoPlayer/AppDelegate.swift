@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 var reachability : Reachability?
 var reachabilityStatus = ""
@@ -25,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         internetCheck=Reachability.forInternetConnection()
         internetCheck?.startNotifier()
         statusChangedWithStatus(internetCheck!)
-        
+         FIRApp.configure()
         return true
     }
     

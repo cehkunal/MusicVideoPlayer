@@ -29,7 +29,7 @@ class MusicVideoPlayerTableViewCell: UITableViewCell {
         musicTitleLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
         
-        rankLabel.text = "\(video!.vRank)"
+        rankLabel.text = "   \(video!.vRank)"
         musicTitleLabel.text = video?.vName
         //musicImage.image = UIImage(named: "imageNotAvailable")
         
